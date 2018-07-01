@@ -12,7 +12,7 @@ def get_commits_history():
 def convert_commits_to_list_of_messages(commits_history):
     lines = commits_history.splitlines()
     return list(rx.Observable.from_(lines)
-                .map(lambda it: it[41:])
+                .map(lambda it: it.split("|", 1)[1])
                 .to_blocking())
 
 
