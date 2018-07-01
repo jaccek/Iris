@@ -1,9 +1,9 @@
 class ChangesDetector:
 
-    def __init__(self, major, minor, bugfix):
+    def __init__(self, major, minor, patch):
         self._newMajor = major
         self._newMinor = minor
-        self._newBugfix = bugfix
+        self._newBugfix = patch
 
     @property
     def new_major_version(self):
@@ -14,17 +14,17 @@ class ChangesDetector:
         return self._newMinor
 
     @property
-    def new_bugfix_version(self):
+    def new_patch_version(self):
         return self._newBugfix
 
     def detect_changes(self, commit_messages):
         major_increase = 0
         minor_increase = 0
-        bugfix_increase = 0
+        patch_increase = 0
 
         for commit in commit_messages:
             if commit.lower().startswith("fix:"):
-                bugfix_increase = 1
+                patch_increase = 1
             if commit.lower().startswith("feat:"):
                 minor_increase = 1
             if commit.lower().startswith("breaking change:"):
@@ -38,4 +38,4 @@ class ChangesDetector:
             self._newBugfix = 0
             self._newMinor += minor_increase
         else:
-            self._newBugfix += bugfix_increase
+            self._newBugfix += patch_increase
