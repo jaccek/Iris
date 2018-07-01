@@ -1,5 +1,5 @@
 
-class ChangesDetector():
+class ChangesDetector:
 
     def __init__(self, major, minor, bugfix):
         self._newMajor = major
