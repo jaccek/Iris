@@ -23,12 +23,12 @@ class ChangesDetector:
         patch_increase = 0
 
         for commit in commit_messages:
-            if commit.lower().startswith("fix:"):
-                patch_increase = 1
-            if commit.lower().startswith("feat:"):
-                minor_increase = 1
             if commit.lower().startswith("breaking change:"):
                 major_increase = 1
+            elif commit.lower().startswith("feat:"):
+                minor_increase = 1
+            else:
+                patch_increase = 1
 
         if major_increase > 0:
             self._newMajor += major_increase

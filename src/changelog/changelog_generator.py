@@ -1,3 +1,5 @@
+import rx
+
 from changelog_printer import ChangelogPrinter
 import change_type
 
@@ -7,7 +9,7 @@ class ChangelogGenerator:
     def __init__(self):
         pass
 
-    def generate_changelog(self, commits_messages, project_version):
+    def generate_changelog(self, commits_messages, current_version, previous_version):
         changes = {
             change_type.ADDED: [],
             change_type.CHANGED: [],
@@ -34,4 +36,4 @@ class ChangelogGenerator:
             changes[commit_type].append(commit_message)
 
         changelog_printer = ChangelogPrinter()
-        changelog_printer.print_changelog(changes, project_version)
+        changelog_printer.print_changelog(changes, current_version, previous_version)
