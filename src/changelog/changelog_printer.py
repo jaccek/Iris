@@ -22,20 +22,23 @@ class ChangelogPrinter:
             lines.extend(self._generate_section_lines(type, changes[type]))
 
         # load actual changelog
-        # TODO: what if changelog doesn't exists yet?
-        changelog_file = open("CHANGELOG-test.md", "r")     # TODO: changelog file name
-        changelog_lines = changelog_file.read().splitlines()
-        changelog_file.close()
+        # TODO: move to separate function
+        try:
+            changelog_file = open("CHANGELOG-test.md", "r")     # TODO: changelog file name
+            changelog_lines = changelog_file.read().splitlines()
+            changelog_file.close()
 
-        # add actual changelog to end of generated changelog
-        found = False
-        for line in changelog_lines:
-            if line == "# Version " + previous_version:
-                found = True
+            # add actual changelog to end of generated changelog
+            found = False
+            for line in changelog_lines:
+                if line == "# Version " + previous_version:
+                    found = True
 
-            if found:
-                lines.append(line)
-                lines.append("\n")
+                if found:
+                    lines.append(line)
+                    lines.append("\n")
+        except IOError:
+            pass
 
         self._print_changelog_stdout(lines)
         self._print_changelog_to_file(lines)

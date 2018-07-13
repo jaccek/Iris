@@ -1,6 +1,17 @@
+# Version 0.2.0
+
+## Added
+
+- Respect previous changelog and version
+
 # Version 0.1.0
 
-* refactor: Make string split more stable
-* feat: Calculate current version (ignoring previous calculations)
-* chore: create command line tool to detect version (WIP)
-* Initial commit
+## Added
+
+- Generate basic changelog (removes previous changelog)
+- Calculate current version (ignoring previous calculations)
+
+## Changed
+
+- Make string split more stable
+

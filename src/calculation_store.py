@@ -35,6 +35,9 @@ class CalculationStore:
         print self._old_version
 
     def save_current_version_for_future_calculations(self, version, commits_history):
+        if len(commits_history) == 0:
+            return
+
         new_version = {
             self._VERSION: version,
             self._LAST_COMMIT: commits_history[-1].split("|", 1)[0]
