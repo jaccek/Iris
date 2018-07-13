@@ -1,3 +1,9 @@
+# Version 0.2.1
+
+## Fixed
+
+- Handle exception if changelog file doesn't exist yet
+
 # Version 0.2.0
 
 ## Added

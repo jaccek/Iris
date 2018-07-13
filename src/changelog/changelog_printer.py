@@ -3,8 +3,8 @@ import change_type
 
 class ChangelogPrinter:
 
-    def __init__(self):
-        pass
+    def __init__(self, changelog_filename = "CHANGELOG.md"):
+        self._changelog_filename = changelog_filename
 
     def print_changelog(self, changes, version, previous_version):
         lines = ["# Version %s\n\n" % version]
@@ -21,27 +21,35 @@ class ChangelogPrinter:
         for type in types:
             lines.extend(self._generate_section_lines(type, changes[type]))
 
-        # load actual changelog
-        # TODO: move to separate function
-        try:
-            changelog_file = open("CHANGELOG-test.md", "r")     # TODO: changelog file name
-            changelog_lines = changelog_file.read().splitlines()
-            changelog_file.close()
-
-            # add actual changelog to end of generated changelog
-            found = False
-            for line in changelog_lines:
-                if line == "# Version " + previous_version:
-                    found = True
-
-                if found:
-                    lines.append(line)
-                    lines.append("\n")
-        except IOError:
-            pass
+        lines.extend(self._get_historical_changelog(previous_version))
 
         self._print_changelog_stdout(lines)
         self._print_changelog_to_file(lines)
+
+    def _get_historical_changelog(self, previous_version):
+        try:
+            changelog_lines = self._load_existing_changelog()
+        except IOError:
+            changelog_lines = []
+
+        historical_lines = []
+        perv_version_found = False
+        for line in changelog_lines:
+            if line == "# Version " + previous_version:
+                perv_version_found = True
+
+            if perv_version_found:
+                historical_lines.append(line)
+                historical_lines.append("\n")
+
+        return historical_lines
+
+    def _load_existing_changelog(self):
+        changelog_file = open(self._changelog_filename, "r")
+        changelog_lines = changelog_file.read().splitlines()
+        changelog_file.close()
+
+        return changelog_lines
 
     @staticmethod
     def _generate_section_lines(section, changes):
@@ -59,9 +67,8 @@ class ChangelogPrinter:
         for line in lines:
             print(line)
 
-    @staticmethod
-    def _print_changelog_to_file(lines):
-        file = open("CHANGELOG-test.md", "w+")      # TODO: changelog filename
+    def _print_changelog_to_file(self, lines):
+        file = open(self._changelog_filename, "w+")
         for line in lines:
             file.write(line)
         file.close()
