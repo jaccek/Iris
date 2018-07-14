@@ -1,4 +1,12 @@
+# Version 0.2.2
+
+## Changed
+
+- Update README file
+- Cleanup ChangelogPrinter class
+
 # Version 0.2.1
+
 
 ## Fixed
 
