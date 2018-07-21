@@ -1,6 +1,9 @@
 env/
 .idea/
+src/build/
+src/dist/
 
 *.pyc
+*.spec
 
 CHANGELOG-test.md

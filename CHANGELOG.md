@@ -1,3 +1,9 @@
+# Version 0.4.0
+
+## Added
+
+- Allow update changelog without calculating new version
+
 # Version 0.3.0
 
 ## Added
