@@ -23,7 +23,7 @@ class ChangelogPrinter:
 
         lines.extend(self._get_historical_changelog(previous_version))
 
-        self._print_changelog_stdout(lines)
+        # self._print_changelog_stdout(lines)
         self._print_changelog_to_file(lines)
 
     def _get_historical_changelog(self, previous_version):

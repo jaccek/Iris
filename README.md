@@ -28,6 +28,6 @@ Executable file can be found in `src/dist` directory.
 
 ## TODO
 
-1. Make possibility to generate changelog without calculating version (changes marked as `UNRELEASED`)
+1. Add all of commits' types
 1. Make possibility to calculate current version without generating changelog (useful for CI/CD)
 1. Allow to use scope in commit messages (eg. `feat(lang): added polish language`)

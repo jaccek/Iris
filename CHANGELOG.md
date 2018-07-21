@@ -1,3 +1,13 @@
+# Version 0.3.0
+
+## Added
+
+- Create binary version of Iris
+
+## Changed
+
+- Update README file
+
 # Version 0.2.2
 
 ## Changed

@@ -35,5 +35,7 @@ class ChangelogGenerator:
             commit_message = commit_message[0].upper() + commit_message[1:]
             changes[commit_type].append(commit_message)
 
+        # TODO: don't print if there is no changesk
+
         changelog_printer = ChangelogPrinter()
         changelog_printer.print_changelog(changes, current_version, previous_version)
