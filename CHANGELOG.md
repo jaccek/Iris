@@ -1,3 +1,13 @@
+# Version 0.4.1
+
+## Changed
+
+- Create first functional test
+
+## Fixed
+
+- Fix version duplication when there is no new commit
+
 # Version 0.4.0
 
 ## Added
