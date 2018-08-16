@@ -33,8 +33,8 @@ class ChangesDetectorTest(unittest.TestCase):
         # then
         expected_version = "0.1.0"
         print_changelog_mock.assert_called_with([
-            "# Version {0}\n\n".format(expected_version),
-            "## Added\n\n",
+            "# Version {0}\n".format(expected_version),
+            "\n## Added\n\n",
             "- Test\n"
         ])
         save_version_mock.assert_called_with(expected_version, commits_history)
@@ -62,8 +62,8 @@ class ChangesDetectorTest(unittest.TestCase):
         # then
         expected_version = "1.0.0"
         print_changelog_mock.assert_called_with([
-            "# Version {0}\n\n".format(expected_version),
-            "## Added\n\n",
+            "# Version {0}\n".format(expected_version),
+            "\n## Added\n\n",
             "- Test\n"
         ])
         save_version_mock.assert_called_with(expected_version, commits_history)
@@ -86,8 +86,8 @@ class ChangesDetectorTest(unittest.TestCase):
         get_commits_history_mock.return_value = commits_history
         get_previous_version_mock.return_value = version
         previous_changelog_mock.return_value = [
-            "# Version {0}\n\n".format(version),
-            "## Added\n\n",
+            "# Version {0}\n".format(version),
+            "\n## Added\n\n",
             "- Test\n"
         ]
 
@@ -96,8 +96,8 @@ class ChangesDetectorTest(unittest.TestCase):
 
         # then
         print_changelog_mock.assert_called_with([
-            "# Version {0}\n\n".format(version),
-            "## Added\n\n",
+            "# Version {0}\n".format(version),
+            "\n## Added\n\n",
             "- Test\n"
         ])
         save_version_mock.assert_called_with(version, commits_history)
@@ -123,8 +123,8 @@ class ChangesDetectorTest(unittest.TestCase):
         get_commits_history_mock.return_value = commits_history
         get_previous_version_mock.return_value = version
         previous_changelog_mock.return_value = [
-            "# Version {0}\n\n".format(version),
-            "## Added\n\n",
+            "# Version {0}\n".format(version),
+            "\n## Added\n\n",
             "- Test\n"
         ]
 
@@ -133,12 +133,12 @@ class ChangesDetectorTest(unittest.TestCase):
 
         # then
         print_changelog_mock.assert_called_with([
-            "# Version {0}\n\n".format(expected_version),
-            "## Fixed\n\n",
+            "# Version {0}\n".format(expected_version),
+            "\n## Fixed\n\n",
             "- Fix\n",
             "\n",
-            "# Version {0}\n\n".format(version),
-            "## Added\n\n",
+            "# Version {0}\n".format(version),
+            "\n## Added\n\n",
             "- Test\n"
         ])
         save_version_mock.assert_called_with(expected_version, commits_history)

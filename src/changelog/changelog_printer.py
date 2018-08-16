@@ -21,7 +21,7 @@ class ChangelogPrinter:
             lines.extend(self._generate_section_lines(type, changes[type]))
 
         if len(lines) != 0:
-            lines.insert(0, "# Version %s\n\n" % version)
+            lines.insert(0, "# Version %s\n" % version)
 
         actual_changelog = self._get_historical_changelog(previous_version)
         if len(actual_changelog) > 0 and len(lines) > 0:
@@ -61,7 +61,7 @@ class ChangelogPrinter:
         if len(changes) == 0:
             return []
 
-        lines = ["## %s\n\n" % section]
+        lines = ["\n## %s\n\n" % section]
         for change in changes:
             lines.append("- %s\n" % change)
         return lines

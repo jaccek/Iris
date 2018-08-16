@@ -1,3 +1,10 @@
+# Version UNRELEASED
+
+## Fixed
+
+- Fix version duplication when there is no new commit
+
+
 # Version 0.4.1
 
 ## Changed
