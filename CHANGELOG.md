@@ -1,9 +1,9 @@
-# Version UNRELEASED
+# Version 0.4.2
 
 ## Fixed
 
+- Fix ugly new lines in changelog
 - Fix version duplication when there is no new commit
-
 
 # Version 0.4.1
 
