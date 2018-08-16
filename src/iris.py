@@ -7,15 +7,14 @@ import rx
 from calculation_store import CalculationStore
 from changelog.changelog_generator import ChangelogGenerator
 from changes_detector import ChangesDetector
-
-
-def get_commits_history():      # TODO: move operations on commits to separate module
-    return subprocess.check_output(["git", "log", "--pretty=format:%H|%s"]).splitlines()
+from git.git_plugin import GitPlugin
+from git.git_plugin import ID as COMMIT_ID
+from git.git_plugin import MESSAGE as COMMIT_MESSAGE
 
 
 def convert_commits_to_list_of_messages(commits_history):
     return list(rx.Observable.from_(commits_history)
-                .map(lambda it: it.split("|", 1)[1])
+                .map(lambda it: it[COMMIT_MESSAGE])
                 .to_blocking())
 
 
@@ -36,7 +35,7 @@ def main():
 
     for opt, arg in opts:
         if opt in ("-h", "--help"):
-            print "TODO: help"      # TODO: help
+            print "TODO: help"  # TODO: help
             sys.exit()
         elif opt in ("-c", "--changelog-only"):
             changelog_only = True
@@ -49,13 +48,13 @@ def main():
     prev_version = calculation_store.get_previous_version()
     last_commit = calculation_store.get_last_commit()
 
-    commits_history = get_commits_history()
+    commits_history = GitPlugin.get_all_commits_history()
     print commits_history
 
-    first_index = len(commits_history)         # TODO: move to separate module
+    first_index = len(commits_history)  # TODO: move to separate module
     index = 0
     for commit in commits_history:
-        if commit.startswith(last_commit):
+        if commit[COMMIT_ID] is last_commit:
             first_index = index
             break
         index += 1
