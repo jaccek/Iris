@@ -23,13 +23,16 @@ class ChangelogGenerator:
             "fix": change_type.FIXED,
             "feat": change_type.ADDED,
             "chore": change_type.CHANGED,
-            "refactor": change_type.CHANGED
+            "refactor": change_type.CHANGED,
+            "bc": change_type.ADDED
         }
 
         for commit in commits_messages:
             if ":" not in commit:
                 continue
             commit_split = commit.split(":", 1)
+            if commit_split[0] not in switcher.keys():
+                continue
             commit_type = switcher[commit_split[0]]
             commit_message = commit_split[1].strip()
             commit_message = commit_message[0].upper() + commit_message[1:]

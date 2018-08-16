@@ -68,16 +68,16 @@ class ChangesDetectorTest(unittest.TestCase):
 
     def test_increases_major_version_by_1_when_there_are_only_breaking_change_commits(self):
         self.detector.detect_changes([
-                "BREAKING CHANGE: some change",
-                "BREAKING CHANGE: second change"
+                "bc: some change",
+                "bc: second change"
         ])
 
         self.assertEqual(self.detector.new_major_version, self.major + 1)
 
     def test_resets_minor_version_when_there_is_at_least_one_breaking_change_commit(self):
         self.detector.detect_changes([
-                "BREAKING CHANGE: some change",
-                "BREAKING CHANGE: second change",
+                "bc: some change",
+                "bc: second change",
                 "feat: some feature",
                 "fix: some bug fixed"
         ])
@@ -86,8 +86,8 @@ class ChangesDetectorTest(unittest.TestCase):
 
     def test_resets_patch_version_when_there_is_at_least_one_breaking_change_commit(self):
         self.detector.detect_changes([
-                "BREAKING CHANGE: some change",
-                "BREAKING CHANGE: second change",
+                "bc: some change",
+                "bc: second change",
                 "feat: some feature",
                 "fix: some bug fixed"
         ])

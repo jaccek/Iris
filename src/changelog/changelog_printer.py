@@ -7,8 +7,6 @@ class ChangelogPrinter:
         self._changelog_filename = changelog_filename
 
     def print_changelog(self, changes, version, previous_version):
-        lines = ["# Version %s\n\n" % version]
-
         types = [
             change_type.ADDED,
             change_type.CHANGED,
@@ -18,10 +16,17 @@ class ChangelogPrinter:
             change_type.SECURITY
         ]
 
+        lines = []
         for type in types:
             lines.extend(self._generate_section_lines(type, changes[type]))
 
-        lines.extend(self._get_historical_changelog(previous_version))
+        if len(lines) != 0:
+            lines.insert(0, "# Version %s\n\n" % version)
+
+        actual_changelog = self._get_historical_changelog(previous_version)
+        if len(actual_changelog) > 0 and len(lines) > 0:
+            lines.extend("\n")
+        lines.extend(actual_changelog)
 
         # self._print_changelog_stdout(lines)
         self._print_changelog_to_file(lines)
@@ -59,7 +64,6 @@ class ChangelogPrinter:
         lines = ["## %s\n\n" % section]
         for change in changes:
             lines.append("- %s\n" % change)
-        lines.append("\n")
         return lines
 
     @staticmethod
