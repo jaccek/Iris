@@ -3,7 +3,7 @@ import change_type
 
 class ChangelogPrinter:
 
-    def __init__(self, changelog_filename = "CHANGELOG.md"):
+    def __init__(self, changelog_filename="CHANGELOG.md"):
         self._changelog_filename = changelog_filename
 
     def print_changelog(self, changes, version, previous_version):

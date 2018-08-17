@@ -20,11 +20,23 @@ class ChangelogGenerator:
         }
 
         switcher = {
-            "fix": change_type.FIXED,
-            "feat": change_type.ADDED,
+            "bc": change_type.ADDED,
             "chore": change_type.CHANGED,
+            "deprecate": change_type.DEPRECATED,
+            "feat": change_type.ADDED,
+            "fix": change_type.FIXED,
+            "perf": change_type.CHANGED,
             "refactor": change_type.CHANGED,
-            "bc": change_type.ADDED
+            "remove": change_type.REMOVED,
+            "revert": change_type.REMOVED,
+            "security": change_type.SECURITY,
+            "style": change_type.CHANGED
+
+            # skipping:
+            #  "build"
+            #  "ci"
+            #  "docs"
+            #  "test"
         }
 
         for commit in commits_messages:
@@ -38,7 +50,7 @@ class ChangelogGenerator:
             commit_message = commit_message[0].upper() + commit_message[1:]
             changes[commit_type].append(commit_message)
 
-        # TODO: don't print if there is no changesk
+        # TODO: don't print if there is no change
 
         changelog_printer = ChangelogPrinter()
         changelog_printer.print_changelog(changes, current_version, previous_version)
