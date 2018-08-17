@@ -36,11 +36,20 @@ class GitPlugin:
 
     @staticmethod
     def _filter_calculated_commits(commits, last_commit):
-        first_index = len(commits)
-        index = 0
-        for commit in commits:
-            if commit[ID] is last_commit:
-                first_index = index
+        new_commits = []
+        print commits
+        print "\n" + last_commit
+        for i in range(0, len(commits)):
+            if commits[i][ID] == last_commit:
                 break
-            index += 1
-        return commits[:first_index]
+            else:
+                new_commits.append(commits[i])
+        return new_commits
+        # first_index = len(commits)
+        # index = 0
+        # for commit in commits:
+        #     if commit[ID] is last_commit:
+        #         first_index = index
+        #         break
+        #     index += 1
+        # return commits[:first_index]
