@@ -15,7 +15,7 @@ class ChangesDetectorTest(unittest.TestCase):
     @patch.object(ChangelogPrinter, '_print_changelog_to_file')
     @patch.object(ChangelogPrinter, '_get_historical_changelog')
     @patch.object(CalculationStore, 'save_current_version_for_future_calculations')
-    @patch.object(GitPlugin, 'get_all_commits_history')
+    @patch.object(GitPlugin, '_get_all_commits_history')
     def test_iris_when_calculating_single_feature_commit_and_there_is_no_previous_calculation(
             self,
             get_commits_history_mock,
@@ -40,12 +40,12 @@ class ChangesDetectorTest(unittest.TestCase):
             "\n## Added\n\n",
             "- Test\n"
         ])
-        save_version_mock.assert_called_with(expected_version, commits_history)
+        save_version_mock.assert_called_with(expected_version, "TEST")
 
     @patch.object(ChangelogPrinter, '_print_changelog_to_file')
     @patch.object(ChangelogPrinter, '_get_historical_changelog')
     @patch.object(CalculationStore, 'save_current_version_for_future_calculations')
-    @patch.object(GitPlugin, 'get_all_commits_history')
+    @patch.object(GitPlugin, '_get_all_commits_history')
     def test_iris_when_calculating_single_breaking_change_commit_and_there_is_no_previous_calculation(
             self,
             get_commits_history_mock,
@@ -69,13 +69,13 @@ class ChangesDetectorTest(unittest.TestCase):
             "\n## Added\n\n",
             "- Test\n"
         ])
-        save_version_mock.assert_called_with(expected_version, commits_history)
+        save_version_mock.assert_called_with(expected_version, "abc")
 
     @patch.object(ChangelogPrinter, '_print_changelog_to_file')
     @patch.object(ChangelogPrinter, '_get_historical_changelog')
     @patch.object(CalculationStore, 'save_current_version_for_future_calculations')
     @patch.object(CalculationStore, 'get_previous_version')
-    @patch.object(GitPlugin, 'get_all_commits_history')
+    @patch.object(GitPlugin, '_get_all_commits_history')
     def test_iris_when_calculating_empty_commit_list_and_there_is_previous_calculation(
             self,
             get_commits_history_mock,
@@ -98,18 +98,14 @@ class ChangesDetectorTest(unittest.TestCase):
         iris.main()
 
         # then
-        print_changelog_mock.assert_called_with([
-            "# Version {0}\n".format(version),
-            "\n## Added\n\n",
-            "- Test\n"
-        ])
-        save_version_mock.assert_called_with(version, commits_history)
+        print_changelog_mock.assert_not_called()
+        save_version_mock.assert_not_called()
 
     @patch.object(ChangelogPrinter, '_print_changelog_to_file')
     @patch.object(ChangelogPrinter, '_get_historical_changelog')
     @patch.object(CalculationStore, 'save_current_version_for_future_calculations')
     @patch.object(CalculationStore, 'get_previous_version')
-    @patch.object(GitPlugin, 'get_all_commits_history')
+    @patch.object(GitPlugin, '_get_all_commits_history')
     def test_iris_when_calculating_single_fix_commit_list_and_there_is_previous_calculation(
             self,
             get_commits_history_mock,
@@ -144,4 +140,4 @@ class ChangesDetectorTest(unittest.TestCase):
             "\n## Added\n\n",
             "- Test\n"
         ])
-        save_version_mock.assert_called_with(expected_version, commits_history)
+        save_version_mock.assert_called_with(expected_version, "abc")

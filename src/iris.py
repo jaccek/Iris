@@ -1,5 +1,4 @@
 import getopt
-import subprocess
 import sys
 
 import rx
@@ -24,7 +23,7 @@ def generate_changelog(commits_messages, current_version, previous_version):
 
 
 def main():
-    # parse params
+    # parse params TODO: move to separate module
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hc", ["help", "changelog-only"])
     except getopt.GetoptError:
@@ -48,17 +47,11 @@ def main():
     prev_version = calculation_store.get_previous_version()
     last_commit = calculation_store.get_last_commit()
 
-    commits_history = GitPlugin.get_all_commits_history()
+    commits_history = GitPlugin.get_commits_newer_than(last_commit)
     print commits_history
 
-    first_index = len(commits_history)  # TODO: move to separate module
-    index = 0
-    for commit in commits_history:
-        if commit[COMMIT_ID] is last_commit:
-            first_index = index
-            break
-        index += 1
-    commits_history = commits_history[:first_index]
+    if len(commits_history) == 0:
+        return
 
     commits_messages = convert_commits_to_list_of_messages(commits_history)
 
@@ -76,7 +69,7 @@ def main():
     generate_changelog(commits_messages, version, prev_version)
 
     if not changelog_only:
-        calculation_store.save_current_version_for_future_calculations(version, commits_history)
+        calculation_store.save_current_version_for_future_calculations(version, commits_history[0][COMMIT_ID])
 
 
 if __name__ == '__main__':
