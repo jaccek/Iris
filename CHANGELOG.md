@@ -1,3 +1,9 @@
+# Version 0.5.1
+
+## Fixed
+
+- Fix new commits detection
+
 # Version 0.5.0
 
 ## Added
