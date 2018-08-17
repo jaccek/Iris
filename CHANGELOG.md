@@ -1,3 +1,13 @@
+# Version 0.5.0
+
+## Added
+
+- Update list of available commit types
+
+## Changed
+
+- Move filtering commits to GitPlugin class
+
 # Version 0.4.2
 
 ## Fixed
